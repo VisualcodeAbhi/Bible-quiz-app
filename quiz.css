@@ -17,7 +17,7 @@ body {
 .scoreboard-container {
     width: 100%;
     max-width: 400px;
-    padding: 20px;
+    padding: 3px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -95,8 +95,8 @@ body {
 
 .icon-container {
     margin-bottom: 20px;
-    width: 100px;
-    height: 100px;
+    /* width: 100px; */
+    height: 200px;
 }
 
 .quiz-icon {
@@ -114,8 +114,8 @@ body {
     margin-bottom: 30px;
     width: 100%;
     text-align: center;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-    min-height: 80px;
+    box-shadow: 0 4px 15px rgba(255, 255, 255, 0.2);
+    min-height: auto;
     display: flex;
     align-items: center;
     justify-content: center;
