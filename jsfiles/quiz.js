@@ -203,9 +203,8 @@ function initQuiz() {
             return;
         }
         
-        // Update Chapter Info (Total Chapters)
-        const totalChapters = bibleData[bookName].chapters;
-        document.getElementById('chapter-info').innerText = `Chapter ${levelNumber}/${totalChapters}`;
+        // Update Chapter Info (Just Chapter Number)
+        document.getElementById('chapter-info').innerText = `Chapter ${levelNumber}`;
 
         loadQuestions();
         startQuiz();
@@ -253,6 +252,9 @@ function showQuestion() {
 
     const currentQuestion = questions[currentQuestionIndex];
     questionText.innerText = currentQuestion.question;
+    
+    // Update Header with Question Count
+    document.getElementById('chapter-info').innerText = `Chapter ${levelNumber} - ${currentQuestionIndex + 1}/${questions.length}`;
 
     currentQuestion.options.forEach((option, index) => {
         const button = document.createElement('button');
