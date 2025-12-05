@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Mandali&display=swap');
 
 body {
     margin: 0;
@@ -11,7 +11,6 @@ body {
     align-items: center;
     color: white;
     overflow: hidden;
-    /* Prevent scrollbars during confetti */
 }
 
 .quiz-container,
@@ -23,24 +22,56 @@ body {
     flex-direction: column;
     align-items: center;
     box-sizing: border-box;
+    height: 100vh; /* Full height for mobile layout */
+    justify-content: flex-start; /* Start from top */
 }
 
 .scoreboard-container {
+    justify-content: center;
     text-align: center;
 }
 
+/* Header Styles */
 .header {
     width: 100%;
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between;
+    align-items: center;
     margin-bottom: 20px;
+    padding-top: 10px;
+}
+
+.back-arrow {
+    font-size: 40px;
+    color: #c5a065; /* Gold/Brown color */
+    cursor: pointer;
+    line-height: 1;
+}
+
+.title-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#book-title {
+    margin: 0;
+    font-size: 28px;
+    color: #8BC34A; /* Greenish Gold */
+    font-weight: bold;
+    text-transform: capitalize;
+}
+
+.chapter-info {
+    font-size: 14px;
+    color: #aaa;
+    margin-top: 2px;
 }
 
 .timer-circle {
     width: 50px;
     height: 50px;
     background-color: #ffc107;
-    /* Yellow/Gold */
     border-radius: 50%;
     display: flex;
     justify-content: center;
@@ -48,39 +79,24 @@ body {
     font-weight: bold;
     font-size: 20px;
     color: black;
-    position: relative;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    position: relative;
 }
 
-/* Creating a scribble effect with pseudo-elements */
+/* Scribble effect for timer */
 .timer-circle::before {
     content: '';
     position: absolute;
-    top: -3px;
-    left: -3px;
-    right: -3px;
-    bottom: -3px;
+    top: -3px; left: -3px; right: -3px; bottom: -3px;
     border: 2px solid #ffc107;
     border-radius: 45% 55% 40% 60% / 55% 45% 60% 40%;
     transform: rotate(-10deg);
 }
 
-.timer-circle::after {
-    content: '';
-    position: absolute;
-    top: -5px;
-    left: -5px;
-    right: -5px;
-    bottom: -5px;
-    border: 2px solid #ffdb58;
-    border-radius: 60% 40% 55% 45% / 40% 60% 45% 55%;
-    transform: rotate(20deg);
-}
-
 .icon-container {
-    margin-bottom: 30px;
-    width: 120px;
-    height: 120px;
+    margin-bottom: 20px;
+    width: 100px;
+    height: 100px;
 }
 
 .quiz-icon {
@@ -90,14 +106,19 @@ body {
     object-fit: contain;
 }
 
+/* Question Box */
 .question-box {
-    background: linear-gradient(90deg, #4facfe 0%, #00f2fe 100%);
-    padding: 15px 20px;
-    border-radius: 30px;
-    margin-bottom: 40px;
+    background: linear-gradient(90deg, #4facfe 0%, #00f2fe 100%); /* Cyan Gradient */
+    padding: 20px;
+    border-radius: 50px; /* Pill shape */
+    margin-bottom: 30px;
     width: 100%;
     text-align: center;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    min-height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .question-box p {
@@ -107,36 +128,41 @@ body {
     color: black;
     line-height: 1.4;
     font-family: 'Mandali', sans-serif;
-    /* Telugu font */
 }
 
+/* Options */
 .options-container {
     display: flex;
     flex-direction: column;
     gap: 15px;
     width: 100%;
-    margin-bottom: 40px;
+    margin-bottom: 20px;
 }
 
 .option-btn {
-    background: #c2a379;
-    /* Tan/Brownish color from image */
+    background: #c5a065; /* Gold/Brown color */
     border: none;
-    padding: 12px;
+    padding: 15px;
     font-size: 20px;
     font-weight: bold;
     color: black;
     cursor: pointer;
     position: relative;
-    /* Irregular shape for brush effect */
-    clip-path: polygon(1% 5%, 99% 0%, 100% 95%, 98% 100%,
-            2% 98%, 0% 10%);
+    width: 90%;
+    margin: 0 auto;
+    
+    /* Simulate brush stroke / rough edges */
+    /* Using a simple clip-path for a jagged look, or border-radius for cleaner look if preferred */
+    /* Let's try a subtle jagged look */
+    clip-path: polygon(
+        2% 0%, 98% 2%, 100% 90%, 95% 100%, 
+        5% 98%, 0% 10%
+    );
+    
+    /* Add texture via gradient */
     background: linear-gradient(90deg, #d4b483 0%, #b08d55 100%);
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
     transition: transform 0.1s;
-    width: 80%;
-    margin: 0 auto;
-    /* Center buttons */
 }
 
 .option-btn:hover {
@@ -196,15 +222,8 @@ body {
 }
 
 @keyframes popIn {
-    0% {
-        transform: scale(0);
-        opacity: 0;
-    }
-
-    100% {
-        transform: scale(1);
-        opacity: 1;
-    }
+    0% { transform: scale(0); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
 }
 
 /* Confetti */
@@ -218,7 +237,5 @@ body {
 }
 
 @keyframes fall {
-    to {
-        transform: translateY(100vh) rotate(720deg);
-    }
+    to { transform: translateY(100vh) rotate(720deg); }
 }

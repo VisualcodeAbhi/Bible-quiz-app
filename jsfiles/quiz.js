@@ -176,9 +176,17 @@ const levelPageMap = {
 function initQuiz() {
     console.log(`Initializing Quiz for: ${bookName}, Level: ${levelNumber}`);
 
+    // Update Header Info
+    document.getElementById('book-title').innerText = bookName;
+    
     // Determine Script Source
     const scriptFile = bookDataMap[bookName] || 'Gdata.js';
     const scriptPath = `jsfiles/${scriptFile}`;
+    
+    // Handle Back Arrow
+    document.getElementById('back-arrow').addEventListener('click', () => {
+        window.location.href = levelPageMap[bookName] || "OT.html";
+    });
 
     console.log(`Loading data from: ${scriptPath}`);
 
@@ -194,6 +202,10 @@ function initQuiz() {
             questionText.innerText = "Error: Data file corrupted or empty.";
             return;
         }
+        
+        // Update Chapter Info (Total Chapters)
+        const totalChapters = bibleData[bookName].chapters;
+        document.getElementById('chapter-info').innerText = `Chapter ${levelNumber}/${totalChapters}`;
 
         loadQuestions();
         startQuiz();
