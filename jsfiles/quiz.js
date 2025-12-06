@@ -96,6 +96,7 @@ const scoreboardContainer = document.getElementById('scoreboard-container');
 const scoreElement = document.getElementById('score');
 const nextLevelBtn = document.getElementById('next-level-btn');
 const feedbackOverlay = document.getElementById('feedback-overlay');
+const loadingOverlay = document.getElementById('loading-overlay');
 const levelPageMap = {
     "Genesis": "Glevels.html",
     "Exodus": "Elevels.html",
@@ -175,6 +176,9 @@ const levelPageMap = {
 // Initialize Logic
 function initQuiz() {
     console.log(`Initializing Quiz for: ${bookName}, Level: ${levelNumber}`);
+    
+    // Show Loader
+    if (loadingOverlay) loadingOverlay.style.display = 'flex';
 
     // Update Header Info
     document.getElementById('book-title').innerText = bookName;
@@ -196,6 +200,10 @@ function initQuiz() {
     
     script.onload = () => {
         console.log("Data script loaded successfully.");
+        
+        // Hide Loader
+        if (loadingOverlay) loadingOverlay.style.display = 'none';
+
         // Check if bibleData is defined
         if (typeof bibleData === 'undefined') {
             console.error("bibleData is undefined after script load!");
@@ -212,6 +220,7 @@ function initQuiz() {
 
     script.onerror = () => {
         console.error("Failed to load data script.");
+        if (loadingOverlay) loadingOverlay.style.display = 'none';
         questionText.innerText = "Error: Could not load quiz data. Check internet connection.";
     };
 
@@ -304,6 +313,20 @@ function selectAnswer(selectedIndex) {
 
     const currentQuestion = questions[currentQuestionIndex];
     const isCorrect = selectedIndex === currentQuestion.correct;
+    
+    // Highlight options
+    const options = optionsContainer.querySelectorAll('.option-btn');
+    options.forEach((btn, index) => {
+        // Disable further clicks
+        btn.style.pointerEvents = 'none';
+        
+        if (index === currentQuestion.correct) {
+            btn.classList.add('correct');
+        }
+        if (index === selectedIndex && !isCorrect) {
+            btn.classList.add('wrong');
+        }
+    });
 
     if (isCorrect) {
         score++;
@@ -337,6 +360,7 @@ function nextQuestion() {
 }
 
 function showScoreboard() {
+    feedbackOverlay.style.display = 'none'; // Ensure feedback overlay is hidden
     quizContainer.style.display = 'none';
     scoreboardContainer.style.display = 'flex';
     scoreElement.innerText = score;
@@ -388,6 +412,13 @@ function createConfetti() {
         setTimeout(() => {
             confetti.remove();
         }, 3000);
+    }
+}
+
+// Helper to toggle loader manually if needed
+function toggleLoader(show) {
+    if (loadingOverlay) {
+        loadingOverlay.style.display = show ? 'flex' : 'none';
     }
 }
 
